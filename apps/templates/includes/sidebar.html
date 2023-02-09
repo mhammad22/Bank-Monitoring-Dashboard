@@ -6,7 +6,7 @@
                 <div class="b-bg">
                     <i class="feather icon-trending-up"></i>
                 </div>
-                <span class="b-title">Datta Able</span>
+                <span class="b-title">Bank Monitoring</span>
             </a>
             <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
         </div>
@@ -19,14 +19,27 @@
                     class="nav-item {% if 'index' in segment %} active {% endif %}">
                     <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
                             class="pcoded-mtext">Dashboard</span></a>
+                        {% if banks %}
+                            <ul class="pcoded-submenu">
+                                {% for bank in banks  %}
+                                    <li class=""><a href={% url 'each_bank_detail' parameter=bank.username   %} class="">{{bank.name}} - {{bank.username}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                 </li>
                 <li data-username="Profile Page" 
-                    class="nav-item {% if 'profile' in segment %} active {% endif %}">
-                    <a href="/profile.html" class="nav-link">
+                    class="nav-item">
+                    <a href="{% url 'bank-details' %}" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
-                            <span class="pcoded-mtext">Profile Page</span></a>
+                            <span class="pcoded-mtext">Bank Details</span></a>
+                </li>   
+                <li data-username="Refresh Timing" 
+                    class="nav-item">
+                    <a href="{% url 'refresh-time' %}" class="nav-link">
+                        <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                            <span class="pcoded-mtext">Refresh Timing</span></a>
                 </li>                
-                <li class="nav-item pcoded-menu-caption">
+                {% comment %} <li class="nav-item pcoded-menu-caption">
                     <label>UI Element</label>
                 </li>
                 <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
@@ -105,7 +118,7 @@
                         </span>
                         <span class="pcoded-mtext">Support</span>
                     </a>
-                </li>                
+                </li> {% endcomment %}
             </ul>
         </div>
     </div>

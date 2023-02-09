@@ -16,14 +16,14 @@
         <ul class="navbar-nav mr-auto">
             <li><a href="javascript:" class="full-screen" onclick="javascript:toggleFullScreen()"><i
                     class="feather icon-maximize"></i></a></li>
-            <li class="nav-item dropdown">
+            {% comment %} <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:" data-toggle="dropdown">Dropdown</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="javascript:">Action</a></li>
                     <li><a class="dropdown-item" href="javascript:">Another action</a></li>
                     <li><a class="dropdown-item" href="javascript:">Something else here</a></li>
                 </ul>
-            </li>
+            </li> {% endcomment %}
             <li class="nav-item">
                 <div class="main-search">
                     <div class="input-group">
@@ -66,34 +66,9 @@
                                     <img class="img-radius" src="{{ ASSETS_ROOT }}/images/user/avatar-1.jpg"
                                          alt="Generic placeholder image">
                                     <div class="media-body">
-                                        <p><strong>John Doe</strong><span class="n-time text-muted"><i
-                                                class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                        <p>New ticket Added</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="n-title">
-                                <p class="m-b-0">EARLIER</p>
-                            </li>
-                            <li class="notification">
-                                <div class="media">
-                                    <img class="img-radius" src="{{ ASSETS_ROOT }}/images/user/avatar-2.jpg"
-                                         alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <p><strong>Joseph William</strong><span class="n-time text-muted"><i
-                                                class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                        <p>Prchace New Theme and make payment</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="notification">
-                                <div class="media">
-                                    <img class="img-radius" src="{{ ASSETS_ROOT }}/images/user/avatar-3.jpg"
-                                         alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i
-                                                class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                        <p>currently login</p>
+                                        {% comment %} <p><strong>John Doe</strong><span class="n-time text-muted"><i
+                                                class="icon feather icon-clock m-r-10"></i>30 min</span></p> {% endcomment %}
+                                        <p>No Notifications</p>
                                     </div>
                                 </div>
                             </li>

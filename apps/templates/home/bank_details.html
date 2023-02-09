@@ -1,0 +1,127 @@
+{% extends "layouts/base.html" %}
+{% load l10n %}
+{% load i18n %}
+
+{% block title %} Bank Details {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <!-- [ breadcrumb ] start -->
+
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <button type="button" class="btn btn-primary" style="margin-left: 1200px;" data-toggle="modal" data-target="#modalLoginForm"><i class="fas fa-plus-circle"></i>Add Bank</button>
+                            <!-- [ Main Content ] start -->
+                            <div class="row">
+
+                                {% comment %} Bank Details {% endcomment %}
+                                <div class="col-xl-12 col-md-6">
+                                    <div class="card Recent-Users">
+                                        <div class="card-header">
+                                            <h5>MayBank Details</h5>
+                                        </div>
+                                        <div class="card-block px-0 py-3">
+                                            <div class="table-responsive">
+                                                <table class="table table-body">
+                                                    <tbody>
+
+                                                        {% if banks %}
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Username</th>
+                                                                    <th>Password</th>
+                                                                    <th>Login Page</th>
+                                                                </tr>
+                                                            </thead>
+
+                                                            {% for bank in banks %}
+                
+                                                                <tr>
+                                                                    <td>
+                                                                        <h6 class="text-muted">{{bank.username}}</h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6 class="text-muted"><i
+                                                                                class="fas text-c-green f-10 m-r-15"></i>{{bank.password}}
+                                                                            </h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6 class="text-muted"><i
+                                                                            class="fas text-c-green f-10 m-r-15"></i>{{bank.url}}
+                                                                        </h6>
+                                                                    </td>
+                                                                </tr>
+                                                            {% endfor %}
+
+                                                        {% else %}
+                                                                <p class="text-center">No Bank Details to show</p>
+                                                        {% endif %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-xl-3">
+                                    <div class="card daily-sales">
+                                        <div class="card-block">
+                                            <h6 class="mb-4">Refresh Time</h6>
+                                            <div class="row d-flex align-items-center">
+                                                <div class="col-9">
+                                                    {% if refresh_time %}
+                                                        <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                                                                {{refresh_time|floatformat:0}} minute(s)</h3>
+                                                    {% else %}
+                                                    <h3 class="f-w-300 d-flex align-items-center m-b-0">
+                                                        0 minute(s)</h3>
+                                                    {% endif %}
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+    
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Add Bank Details</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit">
+                  </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -3,6 +3,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+from datetime import timedelta
 import os, environ
 
 env = environ.Env(
@@ -45,8 +46,11 @@ INSTALLED_APPS = [
     'allauth.socialaccount',                        # OAuth new 
     'allauth.socialaccount.providers.github',       # OAuth new 
     'allauth.socialaccount.providers.twitter',      # OAuth new  
-    "sslserver"    
+    "sslserver",
+    'django_celery_beat',
+    'celery'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -81,29 +85,39 @@ TEMPLATES = [
     },
 ]
 
+import os
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
 WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
-    DATABASES = { 
-      'default': {
-        'ENGINE'  : 'django.db.backends.mysql', 
-        'NAME'    : os.getenv('DB_NAME'     , 'appseed_db'),
-        'USER'    : os.getenv('DB_USERNAME' , 'appseed_db_usr'),
-        'PASSWORD': os.getenv('DB_PASS'     , 'pass'),
-        'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
-        'PORT'    : os.getenv('DB_PORT'     , 3306),
-        }, 
+# if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
+#     DATABASES = { 
+#       'default': {
+#         'ENGINE'  : 'django.db.backends.mysql', 
+#         'NAME'    : os.getenv('DB_NAME'     , 'appseed_db'),
+#         'USER'    : os.getenv('DB_USERNAME' , 'appseed_db_usr'),
+#         'PASSWORD': os.getenv('DB_PASS'     , 'pass'),
+#         'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
+#         'PORT'    : os.getenv('DB_PORT'     , 3306),
+#         }, 
+#     }
+# else:
+#     
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }
-    }
+}
+
+# CRONJOBS = [
+#     ('* * * * *', 'apps.cron.populate_maybank_data'),
+# ]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -135,6 +149,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #############################################################
 # SRC: https://devcenter.heroku.com/articles/django-assets
