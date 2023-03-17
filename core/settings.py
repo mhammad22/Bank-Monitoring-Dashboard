@@ -4,7 +4,8 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from datetime import timedelta
-import os, environ
+import os, environ, logging
+from logging.handlers import RotatingFileHandler
 
 env = environ.Env(
     # set casting, default value
@@ -62,6 +63,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+BROKER_TRANSPORT_OPTIONS = {"max_retries": 3}
 
 ROOT_URLCONF = 'core.urls'
 LOGIN_REDIRECT_URL = "home"  # Route defined in home/urls.py
@@ -190,3 +193,25 @@ if GITHUB_AUTH:
             'key': ''
         }
     }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs.log',
+            'mode': 'w',
+            'maxBytes': 2 * 1024, # 1 MB
+            'backupCount': 0,
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}

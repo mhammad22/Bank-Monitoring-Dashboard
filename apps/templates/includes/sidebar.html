@@ -19,13 +19,6 @@
                     class="nav-item {% if 'index' in segment %} active {% endif %}">
                     <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
                             class="pcoded-mtext">Dashboard</span></a>
-                        {% if banks %}
-                            <ul class="pcoded-submenu">
-                                {% for bank in banks  %}
-                                    <li class=""><a href={% url 'each_bank_detail' parameter=bank.username   %} class="">{{bank.name}} - {{bank.username}}</a></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
                 </li>
                 <li data-username="Profile Page" 
                     class="nav-item">
@@ -38,8 +31,9 @@
                     <a href="{% url 'refresh-time' %}" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
                             <span class="pcoded-mtext">Refresh Timing</span></a>
-                </li>                
-                {% comment %} <li class="nav-item pcoded-menu-caption">
+                </li>          
+{% comment %}                       
+                <li class="nav-item pcoded-menu-caption">
                     <label>UI Element</label>
                 </li>
                 <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"

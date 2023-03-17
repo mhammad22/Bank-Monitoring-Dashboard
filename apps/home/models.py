@@ -5,7 +5,8 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.db import models
 from django.contrib.auth.models import User
-from apps.home.db import BankTypes
+from apps.home.db import BankTypes, StatusChoices, TransactionTypes
+from django.utils import timezone
 
 # Create your models here.
 
@@ -39,15 +40,20 @@ class BankDetails(BaseModel):
                                  blank=True)
     last_clearing = models.DecimalField(max_digits=40, decimal_places=5, null=True,
                                  blank=True)
+    is_enabled = models.BooleanField(default=True, null=True)
+    last_synced = models.DateTimeField(default=timezone.now,blank=True, null=True)
   
 class AccountDetails(BaseModel):
     bank = models.ForeignKey(BankDetails, on_delete=models.CASCADE, db_index=True, related_name='bank_detail')
-    date = models.DateField(null=True)
     description = models.TextField(null=True, blank=True)
-    amount = models.DecimalField(max_digits=40, decimal_places=5, null=True,
-                                 blank=True)
+    amount = models.DecimalField(max_digits=40, decimal_places=5, null=True, blank=True)
+    trans_type = models.CharField(max_length=20, choices=TransactionTypes.choices, null=True, blank=True, default=TransactionTypes.DEBIT)
+    balance = models.DecimalField(max_digits=40, decimal_places=5, null=True, blank=True)
+    trans_date = models.DateField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=StatusChoices.choices, null=True, blank=True, default=StatusChoices.TODO)
+    
     class Meta:
-        unique_together = ["date", "description", "amount"]  
+        unique_together = ["trans_date", "description", "amount", "trans_type"]  
     
 
 class TaskTime(BaseModel):

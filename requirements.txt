@@ -13,3 +13,7 @@ django-allauth==0.51.0
 django-sslserver
 celery
 django-admin
+selenium
+django
+environ
+django-celery-beat
