@@ -16,7 +16,7 @@ from django.views import View
 from datetime import datetime
 from apps.home.forms import AddBankForm, RefreshTimeForm
 from apps.home.models import BankDetails, AccountDetails, TaskTime
-from apps.home.db import BankTypes
+from apps.home.db import BankNamesChoices, BankTypes
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 import logging
@@ -116,10 +116,13 @@ class BankDetailsView(View):
     def post(self, request):
         form = AddBankForm(request.POST)
         if form.is_valid():
+            choices_dict = {value: label for value, label in BankNamesChoices}
             username = request.POST['username']
             password = request.POST['password']
             url = request.POST['url']
-            BankDetails.objects.create(username=username, password=password, url=url)
+            name = request.POST['name']
+            acc_num = request.POST['acc_num']
+            BankDetails.objects.create(username=username, password=password, url=url, name=choices_dict.get(name), account_num=acc_num)
         return redirect('bank-details')
 
 # Refresh time view to set the refresh time

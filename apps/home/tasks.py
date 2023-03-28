@@ -201,7 +201,7 @@ def fetch_rhb_account_history():
     for trans in all_trans:
         amount = trans.find_element(By.XPATH, './/div[2]/div[2]/p').text
         description = trans.find_element(By.XPATH, './/div[2]/div/p[1]').text
-        date = trans.find_element(By.CLASS_NAME, 'css-1c6f9lg').text
+        date = trans.find_element(By.CLASS_NAME, 'css-1r3d259').text
         
         amt, trans_type = rhb_get_amount_and_type(amount)
         print(amt, trans_type, date, description)
@@ -433,22 +433,22 @@ app.conf.beat_schedule = {
     #         #crontab(minute='*/' + str(int(TaskTime.objects.all().first().time))),
     #         # timedelta(seconds=int(TaskTime.objects.all().first().time))
     # },
-    # 'rhb': {
-    #     'task': 'home.tasks.fetch_rhb_account_history',
-    #     'schedule': crontab(minute='*/2')
-    #         #crontab(minute='*/' + str(int(TaskTime.objects.all().first().time))),
-    #         # timedelta(seconds=int(TaskTime.objects.all().first().time))
-    # },
+    'rhb': {
+        'task': 'home.tasks.fetch_rhb_account_history',
+        'schedule': crontab(minute='*/2')
+            #crontab(minute='*/' + str(int(TaskTime.objects.all().first().time))),
+            # timedelta(seconds=int(TaskTime.objects.all().first().time))
+    },
     # 'hongleong': {
     #     'task': 'home.tasks.fetch_hongleong_account_history',
     #     'schedule': crontab(minute='*/2')
     #         #crontab(minute='*/' + str(int(TaskTime.objects.all().first().time))),
     #         # timedelta(seconds=int(TaskTime.objects.all().first().time))
     # },
-    'bsn': {
-        'task': 'home.tasks.fetch_bsn_account_history',
-        'schedule': crontab(minute='*/2')
-            #crontab(minute='*/' + str(int(TaskTime.objects.all().first().time))),
-            # timedelta(seconds=int(TaskTime.objects.all().first().time))
-    },
+    # 'bsn': {
+    #     'task': 'home.tasks.fetch_bsn_account_history',
+    #     'schedule': crontab(minute='*/2')
+    #         #crontab(minute='*/' + str(int(TaskTime.objects.all().first().time))),
+    #         # timedelta(seconds=int(TaskTime.objects.all().first().time))
+    # },
 }

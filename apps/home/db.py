@@ -13,3 +13,12 @@ class StatusChoices(TextChoices):
 class TransactionTypes(TextChoices):
     CREDIT = 'CD', 'Credit'
     DEBIT = 'DB', 'Debit'
+    
+BankNamesChoices = [
+    ('MB', 'MayBank'),
+    ('BS', 'BSN'),
+    ('HL', 'HongLeong'),
+    ('RB', 'RHB'),
+    ('CB', 'CimbBiz'),
+]
+    
